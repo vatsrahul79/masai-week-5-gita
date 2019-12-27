@@ -127,23 +127,23 @@ xhr1.onload = function () {
         console.log(JSON.parse(xhr1.response))
         result = JSON.parse(xhr1.response)
         token = result.access_token;
-        myfunc(token)
-
         arr[0] = result.access_token
-
+        console.log(token)
+        gita(token)
     }
     else {
         console.log("Error Code is:" + xhr1.status);
     }
 }
-
+console.log(arr[0])
 xhr1.open('POST', 'https://bhagavadgita.io/auth/oauth/token?client_id=9jUg2xTbtnAFyO4ZRdKu9jIyeuKT3fheHoVrWgMO&client_secret=RaQy2emdWisomuh5v2iSqHxj8pl6rQ5ugI550Fjqc36mxTVvUk&grant_type=client_credentials&scope=verse chapter')
 xhr1.setRequestHeader('accept', 'application/json');
 xhr1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 xhr1.send();
-console.log(token)
+
+   function gita(token){
     var apiDataCd=new XMLHttpRequest();
-    apiDataCd.open('GET','https://bhagavadgita.io/api/v1/chapters?access_token=Tp5CDcSt0MoE85sI9cDfiHZs93XdeR ');
+    apiDataCd.open('GET','https://bhagavadgita.io/api/v1/chapters?access_token='+token);
     apiDataCd.send();
     apiDataCd.onload = function (){
       var bgObject = JSON.parse(apiDataCd.response);
@@ -154,6 +154,7 @@ console.log(token)
         "<p class='bg-info'>"+element.chapter_summary+"</p>"+"<p>"+element.name+"</p>"+"<p>"+element.name_meaning+"</p>"+"<p>"+element.name_translation+"</p>"+element.transliterated+"</p>"+"<p>"+element.verses_count+"</p>")        
       });
     }
+   }
   </script>
 </body>
 </html>
